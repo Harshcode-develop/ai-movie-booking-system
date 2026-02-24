@@ -52,7 +52,7 @@ public class Movie {
     private String trailerUrl;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
+    @Column(name = "movie_cast", columnDefinition = "jsonb")
     private List<CastMember> cast;
 
     @JdbcTypeCode(SqlTypes.JSON)
