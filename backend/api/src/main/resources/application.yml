@@ -3,7 +3,7 @@
 # ================================
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 spring:
   config:
@@ -18,17 +18,25 @@ spring:
     password: ${SUPABASE_DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
-      connection-timeout: 20000
-      maximum-pool-size: 5
+      connection-timeout: 30000
+      maximum-pool-size: 4
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      keepalive-time: 60000
+      validation-timeout: 5000
+      leak-detection-threshold: 2000
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
-      "[hibernate.format_sql]": true
-      "[hibernate.dialect]": org.hibernate.dialect.PostgreSQLDialect
-      "[hibernate.jdbc.lob.non_contextual_creation]": true
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        "[jdbc.lob.non_contextual_creation]": true
+        "[temp.use_jdbc_metadata_defaults]": false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   # Spring AI - Gemini via OpenAI compatibility
   ai:
